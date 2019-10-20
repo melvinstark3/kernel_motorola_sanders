@@ -2756,14 +2756,6 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 	nat_bitmap_size = le32_to_cpu(ckpt->nat_ver_bitmap_bytesize);
 	log_blocks_per_seg = le32_to_cpu(raw_super->log_blocks_per_seg);
 
-	if (sit_bitmap_size != ((sit_segs / 2) << log_blocks_per_seg) / 8 ||
-		nat_bitmap_size != ((nat_segs / 2) << log_blocks_per_seg) / 8) {
-		f2fs_msg(sbi->sb, KERN_ERR,
-			"Wrong bitmap size: sit: %u, nat:%u",
-			sit_bitmap_size, nat_bitmap_size);
-		return 1;
-	}
-
 	if (unlikely(f2fs_cp_error(sbi))) {
 		f2fs_err(sbi, "A bug case: need to run fsck");
 		return 1;
